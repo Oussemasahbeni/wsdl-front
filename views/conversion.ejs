@@ -8,19 +8,21 @@
                 <p>Convert from Eu to Tnd</p>
                 <input placeholder="Insert the value here" class="subscribe-input" name="value" type="text">
                 <br>
-                <div class="submit-btn"> <button type="submit"> SUBMIT</button></div>
+                <button type="submit">
+                    <div class="submit-btn"> SUBMIT</div>
+                </button>
             </form>
-
+            <div class="result">
+                <% if(typeof result !=='undefined' && result !==0 && result>0) { %>
+                    <p>
+                        Converted Amount: <%= result %>TND
+                    </p>
+                    <% } else { %>
+                        <p>Error fetching the value</p>
+                        <% } %>
+            </div>
         </div>
 
-        <div class="result">
-            <% if(typeof result !=='undefined' && result !==0 ) { %>
-                <p>
-                    Converted Amount: <%= result %>TND
-                </p>
-                <% } else { %>
-                    <p>Error fetching the value</p>
-                    <% } %>
-        </div>
+
 
     </div>

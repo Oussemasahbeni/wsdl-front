@@ -207,8 +207,8 @@ i {
 
   .subscribe {
   position: relative;
-  height: 140px;
-  width: 240px;
+  height: 350px;
+  width: 500px;
   padding: 20px;
   background-color: #FFF;
   border-radius: 4px;
@@ -287,4 +287,5 @@ button{
 
 .result{
   margin-left: 50px;
+  margin-top: 50px;
 }

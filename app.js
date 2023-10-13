@@ -21,19 +21,68 @@ const client = soap.createClient(url, (err, client) => {
   } else {
     app.post("/conversion", (req, res) => {
       mont = req.body.value || 0;
-
-      console.log("mont is ", mont);
       client.conversion({ arg0: mont }, (err, result) => {
         if (err) {
           console.error("SOAP request error:", err);
           res.status(500).json({ error: "Internal Server Error" });
         } else {
-          let convertedAmount = result.return;
-          console.log("converted amount is ", convertedAmount);
-          // res.json({ result: convertedAmount });
+          const convertedAmount = result.return;
           res.status(200).render("conversion", { result: convertedAmount });
-          // convertedAmount = 0;
-          // res.status(200).redirect(`/conversion?result=${convertedAmount}`);
+        }
+      });
+    });
+
+    app.get("/retirer", (req, res) => {
+      client.getCurrentSolde({}, (err, result) => {
+        if (err) {
+          console.error("SOAP request error:", err);
+          res.status(500).json({ error: "Internal Server Error" });
+        } else {
+          const solde = result.return;
+          res.render("retirer", { solde: solde, result: solde });
+        }
+      });
+    });
+    app.get("/verser", (req, res) => {
+      client.getCurrentSolde({}, (err, result) => {
+        if (err) {
+          console.error("SOAP request error:", err);
+          res.status(500).json({ error: "Internal Server Error" });
+        } else {
+          const solde = result.return;
+          res.render("verser", { solde: solde, result: solde });
+        }
+      });
+    });
+
+    app.post("/retirer", (req, res) => {
+      mont = req.body.value || 0;
+      client.retirer({ arg0: mont }, (err, result) => {
+        if (err) {
+          console.error("SOAP request error:", err);
+          res.status(500).json({ error: "Internal Server Error" });
+        } else {
+          const convertedAmount = result.return;
+          res.status(200).render("retirer", {
+            result: convertedAmount,
+            solde: convertedAmount,
+          });
+        }
+      });
+    });
+
+    app.post("/verser", (req, res) => {
+      mont = req.body.value || 0;
+      client.verser({ arg0: mont }, (err, result) => {
+        if (err) {
+          console.error("SOAP request error:", err);
+          res.status(500).json({ error: "Internal Server Error" });
+        } else {
+          const convertedAmount = result.return;
+          res.status(200).render("verser", {
+            result: convertedAmount,
+            solde: convertedAmount,
+          });
         }
       });
     });
