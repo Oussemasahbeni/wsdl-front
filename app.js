@@ -88,6 +88,49 @@ const client = soap.createClient(url, (err, client) => {
     });
   }
 });
+
+var myHeaders = new Headers();
+myHeaders.append("apikey", "6hztCdNujF35j93EprXhg3rwddzwalwS");
+
+var requestOptions = {
+  method: "GET",
+  redirect: "follow",
+  headers: myHeaders,
+};
+
+let storedCurrencies;
+app.get("/list", (req, res) => {
+  fetch("https://api.apilayer.com/currency_data/list", requestOptions)
+    .then((response) => response.text())
+    .then((result) => {
+      const currencies = JSON.parse(result);
+      // console.log(currencies.currencies);
+      storedCurrencies = currencies.currencies;
+      res.render("list", { value: currencies.currencies });
+    })
+    .catch((error) => console.log("error", error));
+});
+
+app.post("/submit", (req, res) => {
+  const fromCurrency = req.body.fromCurrency;
+  const toCurrency = req.body.toCurrency;
+  const amount = parseFloat(req.body.amount);
+
+  fetch(
+    `https://api.apilayer.com/currency_data/convert?to=${toCurrency}&from=${fromCurrency}&amount=${amount}`,
+    requestOptions
+  )
+    .then((response) => response.text())
+    .then((result) => {
+      const convertedAmount = JSON.parse(result);
+      res.render("list", {
+        value: storedCurrencies,
+        convertedAmount: convertedAmount,
+      });
+    })
+    .catch((error) => console.log("error", error));
+});
+
 app.get("/conversion", (req, res) => {
   // const result = req.query.result || 0;
   // console.log("Request body:", req.query.result);

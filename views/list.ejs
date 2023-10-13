@@ -1,0 +1,49 @@
+<%- include("partials/header") %>
+
+
+
+    <h4 class="currency-header">Currency Conversion</h4>
+
+
+
+
+    <form method="post" action="/submit" id="currencyConversionForm">
+        <div class="money-converter">
+            <div class="element">
+                <h4 for="fromCurrency">From </h4>
+                <select name="fromCurrency">
+                    <% for (const key in value) { %>
+                        <option value="none" selected disabled hidden>Select an Option</option>
+                        <option value="<%= key %>">
+                            <%= key %>
+                        </option>
+                        <% } %>
+                </select>
+            </div>
+            <div class="element">
+                <h4 for="toCurrency">To </h4>
+                <select name="toCurrency">
+                    <% for (const key in value) { %>
+                        <option value="none" selected disabled hidden>Select an Option</option>
+                        <option value="<%= key %>">
+                            <%= key %>
+                        </option>
+                        <% } %>
+                </select>
+            </div>
+            <div class="element">
+                <h4 for="amount">Amount </h4>
+                <input class="amount" type="number" name="amount" placeholder="Enter amount">
+
+            </div>
+            <div class="element">
+                <% if(locals.convertedAmount){ %>
+                    <h4 for="toCurrency">Result </h4>
+                    <input class="amount value-result " readonly value=<%=convertedAmount.result %>>
+                    <% } %>
+            </div>
+            <button class="convert-btn" type="submit">Convert</button>
+    </form>
+
+
+    </div>
