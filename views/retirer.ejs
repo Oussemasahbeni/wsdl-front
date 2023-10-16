@@ -6,7 +6,7 @@
         <div class="subscribe">
             <form action="/retirer " method="POST">
                 <p>Retirer</p>
-                <% if(result>0){ %>
+                <% if(result>-1){ %>
                     <h4> Current Solde is: <%= solde %> TND 💵
                             <% } else { %>
                                 <p>Insufficient funds. Withdrawal not allowed.</p>
@@ -20,7 +20,7 @@
             </form>
 
             <div class="result">
-                <% if(typeof result !=='undefined' && result !==0 && result>0) { %>
+                <% if(typeof result !=='undefined' ) { %>
                     <p>
                         result: <%= result %>TND
                     </p>

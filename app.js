@@ -39,7 +39,8 @@ const client = soap.createClient(url, (err, client) => {
           res.status(500).json({ error: "Internal Server Error" });
         } else {
           const solde = result.return;
-          res.render("retirer", { solde: solde, result: solde });
+          let placeHolder = 0;
+          res.render("retirer", { solde: solde, result: placeHolder });
         }
       });
     });
@@ -50,7 +51,8 @@ const client = soap.createClient(url, (err, client) => {
           res.status(500).json({ error: "Internal Server Error" });
         } else {
           const solde = result.return;
-          res.render("verser", { solde: solde, result: solde });
+          let placeHolder = 0;
+          res.render("verser", { solde: solde, result: placeHolder });
         }
       });
     });
